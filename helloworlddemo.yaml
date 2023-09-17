@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: helloworlddemo1
+spec:
+  selector:
+    app: helloworlddemo
+  ports:
+    - port: 3000
+      targetPort: 3000
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: Deployment
+metadata:
+  name: helloworlddemo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: helloworlddemo
+  template:
+    metadata:
+      labels:
+        app: helloworlddemo
+    spec:
+      containers:
+        - name: app
+          image: horsekit1982/helloworlddemo
+          ports:
+            - containerPort: 3000
+          imagePullPolicy: Always
